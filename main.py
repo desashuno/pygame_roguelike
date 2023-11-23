@@ -30,6 +30,7 @@ class Game:
 
     def draw(self):
         self.screen.fill('black')
+        self.map.draw()
 
     def run(self):
         while True:
