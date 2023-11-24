@@ -60,8 +60,24 @@ class Map:
         self.draw_walls()
 
     def draw_background(self):
-        self.game.screen.fill('darkgreen')
+        self.game.screen.fill('green')
 
     def draw_walls(self):
         for pos in self.room_map:
-            pg.draw.rect(self.game.screen, 'darkgray', (pos[0] *100, pos[1] * 100, 100, 100), 2)
+            if self.room_map[pos] == 110:
+                pg.draw.rect(self.game.screen, 'darkgray', (pos[0] *100, pos[1] * 100, 100, 100))
+            elif self.room_map[pos] == 120:
+                pg.draw.rect(self.game.screen, 'darkblue', (pos[0] *100, pos[1] * 100, 100, 100))
+            elif self.room_map[pos] == 130:
+                pg.draw.rect(self.game.screen, 'cyan', (pos[0] * 100, pos[1] *100, 100, 100))
+            elif self.room_map[pos] == 140:
+                pg.draw.rect(self.game.screen, 'darkgreen', (pos[0] * 100, pos[1] *100, 100, 100))
+            elif self.room_map[pos] == 210:
+                pg.draw.rect(self.game.screen, 'yellow', (pos[0] * 100, pos[1] *100, 100, 100))
+            elif self.room_map[pos] == 220:
+                pg.draw.rect(self.game.screen, 'black', (pos[0] * 100, pos[1] *100, 100, 100))
+            elif self.room_map[pos] == 230:
+                pg.draw.rect(self.game.screen, 'white', (pos[0] * 100, pos[1] *100, 100, 100))
+            elif self.room_map[pos] == 240:
+                pg.draw.rect(self.game.screen, 'blue', (pos[0] * 100, pos[1] *100, 100, 100))
+

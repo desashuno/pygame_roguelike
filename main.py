@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from map import Map
+from player import Player
 from settings import *
 
 
@@ -17,6 +18,7 @@ class Game:
 
     def start_modules(self):
         self.map = Map(self)        
+        self.player = Player(self)
 
     def events(self):
         for event in pg.event.get():
@@ -27,17 +29,18 @@ class Game:
     def update(self):
         pg.display.flip()
         self.deltatime = self.clock.tick(FPS)
+        self.player.update()
 
     def draw(self):
         self.screen.fill('black')
         self.map.draw()
+        self.player.draw()
 
     def run(self):
         while True:
             self.events()
             self.update()
             self.draw()
-
 
 
 if __name__ == "__main__":
