@@ -3,12 +3,12 @@ import sys
 from map import Map
 from player import Player
 from settings import *
-
+from bullet import *
 
 class Game:
     def __init__(self):
         pg.init()
-        pg.display.set_caption('THE BINDING OF XAVI')
+        pg.display.set_caption('PG test :)')
         self.screen = pg.display.set_mode(RES)
 
         self.clock = pg.time.Clock()
@@ -19,6 +19,7 @@ class Game:
     def start_modules(self):
         self.map = Map(self)        
         self.player = Player(self)
+        self.bullet_handler = BulletHandler(self)
 
     def events(self):
         for event in pg.event.get():

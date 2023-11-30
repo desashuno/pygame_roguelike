@@ -18,6 +18,7 @@ class Map:
         SE = 'corner_se'
         
         self.room_map = {}
+        self.room_map_walls = []
 
         self.test_room = [[NW,WN,WN,WN,WN,WN,WN,WN,WN,WN,NE],
                           [WW, _, _, _, _, _, _, _, _, _,WE],
@@ -27,16 +28,16 @@ class Map:
                           [WW, _, _, _, _, _, _, _, _, _,WE],
                           [SW,WS,WS,WS,WS,WS,WS,WS,WS,WS,SE]]
 
+        self.actual_room = self.test_room
         self.get_map()
-        print(self.room_map)
-
+        
     def get_map(self):
-        for j, row in enumerate(self.test_room):
+        for j, row in enumerate(self.actual_room):
             for i, value in enumerate(row):
                 if value == 'floor':
-                    self.test_room[j][i] = False
+                    self.actual_room[j][i] = False
 
-        for j, row in enumerate(self.test_room):
+        for j, row in enumerate(self.actual_room):
             for i, value in enumerate(row):
                 if value == 'wall_n':
                     self.room_map[(i, j)] = 110
@@ -54,6 +55,8 @@ class Map:
                     self.room_map[(i, j)] = 230
                 elif value == 'corner_se':
                     self.room_map[(i, j)] = 240
+                if value != False:
+                    self.room_map_walls.append((i, j))
 
     def draw(self):
         self.draw_background()

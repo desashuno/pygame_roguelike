@@ -1,35 +1,45 @@
 import pygame as pg
 from settings import *
+import math
 
 
 class Player:
     def __init__(self, game):
         self.game = game
         self.x, self.y = PLAYER_POS
+        self.angle = PLAYER_ANGLE
 
     def movement(self):
         dx, dy = 0, 0
-        self.vel = (PLAYER_SPEED * self.game.deltatime) / 200
+        self.speed = (PLAYER_SPEED * self.game.deltatime) / 200
+        
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
-            self.y -= self.vel
+            dy += -self.speed
         if keys[pg.K_s]:
-            self.y += self.vel 
+            dy += self.speed
         if keys[pg.K_a]:
-            self.x -= self.vel
+            dx += -self.speed
         if keys[pg.K_d]:
-            self.x += self.vel
+            dx += self.speed
             
         #print('x: ', self.x, 'y: ', self.y)
-        self.check_collider()
+        self.check_collider(dx, dy)
 
-    def check_collider(self):
-       pass 
+    def check_wall_col(self, x, y):
+        return (x, y) not in self.game.map.room_map_walls
+
+    def check_collider(self, dx, dy):
+        scale = PLAYER_SIZE_SCALE / self.game.deltatime
+        if self.check_wall_col(int(self.x + dx * scale), int(self.y)):            
+            self.x += dx
+        if self.check_wall_col(int(self.x), int(self.y + dy * scale)):            
+            self.y += dy
 
     def update(self):
         self.movement()
         #self.check_collider()
 
     def draw(self):
-        pg.draw.rect(self.game.screen, 'yellow', (self.x * 100, self.y * 100, PLAYER_SIZE_SCALE, PLAYER_SIZE_SCALE))
+        pg.draw.circle(self.game.screen, 'yellow', (self.x * 100, self.y * 100), 32)
 
