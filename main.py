@@ -1,9 +1,11 @@
 import pygame as pg
 import sys
+import os
 from map import Map
 from player import Player
 from settings import *
 from bullet import *
+
 
 class Game:
     def __init__(self):
@@ -26,6 +28,13 @@ class Game:
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+    
+    def dev_info(self):
+        if sys.platform == 'win32':
+            os.system('cls')
+        elif sys.platform == 'linux':
+            os.system('clear')
+        self.player.dev_info() 
 
     def update(self):
         pg.display.flip()
@@ -42,6 +51,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
+            self.dev_info()
 
 
 if __name__ == "__main__":
